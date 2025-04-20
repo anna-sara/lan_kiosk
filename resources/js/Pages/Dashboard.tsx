@@ -1,26 +1,68 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
+import { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 
-export default function Dashboard() {
+
+interface CustomerProps {
+    customers: [{
+        id: number
+        name: string
+    }],
+};
+
+interface Customer {
+    id: number
+    name: string
+};
+
+
+
+export default function Dashboard({customers}: CustomerProps) {
+    const [searchItem, setSearchItem] = useState('')
+    const [filteredCustomers, setFilteredCustomers] = useState<Customer[]>(customers)
+
+    const handleInputChange = (e: any) => { 
+        const searchTerm = e.target.value;
+        setSearchItem(searchTerm)
+
+        const filteredItems = customers.filter((customer) =>
+            customer.name.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        
+        setFilteredCustomers(filteredItems);
+    }
+
     return (
-        <AuthenticatedLayout
-            header={
-                <h2 className="text-xl font-semibold leading-tight text-gray-800">
-                    Dashboard
-                </h2>
-            }
-        >
+        <AuthenticatedLayout>
             <Head title="Dashboard" />
 
-            <div className="py-12">
-                <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                    <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
-                        <div className="p-6 text-gray-900">
-                            You're logged in!
+            <section className='section'>
+                <div className="container is-max-desktop">
+                    <h1 className="title is-2">Deltagare</h1>
+                        <input
+                            className='input my-4'
+                            type="text"
+                            value={searchItem}
+                            onChange={handleInputChange}
+                            placeholder='Skriv för att söka'
+                        />
+                        <div className='container is-centered'>
+                            {filteredCustomers && filteredCustomers.map( customer => {
+                                return <a key={customer.id} className="box is-flex is-justify-content-space-between" href={`/customer/` + customer.id}>
+                                    <p>{customer.name}</p>
+                                    <span className="icon has-text-black">
+                                        <FontAwesomeIcon icon={faArrowRight} />
+                                    </span>
+                                </a>
+                            })}
                         </div>
-                    </div>
+                   
+                
                 </div>
-            </div>
+            </section>
+            
         </AuthenticatedLayout>
     );
 }
