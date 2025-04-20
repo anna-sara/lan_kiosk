@@ -1,0 +1,138 @@
+import TextInput from '@/Components/TextInput';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import { Head, useForm } from '@inertiajs/react';
+import { FormEventHandler } from 'react';
+
+interface CustomerProps {
+    customer:{
+        id: number
+        name: string
+        deposit: number
+        amount_left: number
+        give_leftover: number
+        purchases: [{
+            id: number
+            amount: number
+        }]
+    } 
+};
+
+export default function Customer({customer}: CustomerProps) {
+
+    const { data, setData, post, processing, errors, reset } = useForm({
+        amount: "",
+        customer_id: customer.id,
+        deposit: "",
+        id: customer.id
+
+    });
+
+    const submit: FormEventHandler = (e) => {
+        e.preventDefault()
+        post(route('register_purchase'), {
+            onFinish: () => reset('amount'),
+        }); 
+    }
+
+    const submitDeposit: FormEventHandler = (e) => {
+        e.preventDefault()
+        post('/api/register_deposit/' + customer.id, {
+            onFinish: () => reset('deposit'),
+        }); 
+    }
+   
+    return (
+        <AuthenticatedLayout>
+            <Head title="Deltagare" />
+
+            <section className='section'>
+                <div className="container is-max-desktop">
+                    <h1 className="title is-2">{customer.name}</h1>
+                        <div className='container is-centered'>
+                             <div className="box">
+                             <h2 className='title is-4'>Saldo: {customer.amount_left ? customer.amount_left : 0} kr</h2>
+                                { customer.deposit && 
+                                    <p>Swishad summa: {customer.deposit} kr</p>
+                                }
+                                <p>Ge ev överblivet saldo till vBytes: {customer.give_leftover ? "Ja" : "Nej"}</p>
+                            </div>
+
+                            <div className="box">
+                                <h2 className='title is-4'>Registrera köp</h2>
+                                <form onSubmit={submit}>
+                                    <div className="field">
+                                        <div className="control">
+                                            <TextInput
+                                                required
+                                                className="input" 
+                                                type="number" 
+                                                name="amount" 
+                                                value={data.amount}
+                                                placeholder="Summa"
+                                                min={0}
+                                                //max={customer.amount_left}
+                                                onChange={(e) => setData('amount', e.target.value)}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="field is-grouped">
+                                        <div className="control">
+                                            <button className="button">Spara</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div className="box">
+                                <h2 className='title is-4'>Lägga in swishpeng</h2>
+                                <form onSubmit={submitDeposit}>
+                                    <div className="field">
+                                        <div className="control">
+                                            <TextInput
+                                                required
+                                                className="input" 
+                                                type="number" 
+                                                name="amount" 
+                                                value={data.deposit}
+                                                placeholder="Summa"
+                                                onChange={(e) => setData('deposit', e.target.value)}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="field is-grouped">
+                                        <div className="control">
+                                            <button className="button">Spara</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <details className="box">
+                                <summary className='title is-4 my-3'>
+                                    <span>Tidigare köp</span>
+                                    <div className="summary-chevron-up">
+			                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-chevron-down">
+                                                <polyline points="6 9 12 15 18 9"></polyline>
+                                            </svg>
+		                            </div>
+                                </summary>
+                                {customer.purchases && customer.purchases.map( purchase => {
+                                    return <div key={purchase.id} className="box">
+                                        <p>{purchase.amount} kr</p>
+                                    </div>
+                                })}
+                                <div className="summary-chevron-down">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-chevron-up">
+                                        <polyline points="18 15 12 9 6 15"></polyline>
+                                    </svg>
+                                </div>
+                            </details>
+                        </div>
+                   
+                
+                </div>
+            </section>
+            
+        </AuthenticatedLayout>
+    );
+}
