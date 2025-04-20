@@ -84,7 +84,7 @@ export default function Customer({customer}: CustomerProps) {
                             </div>
 
                             <div className="box">
-                                <h2 className='title is-4'>Lägga in swishpeng</h2>
+                                <h2 className='title is-4'>Inbetalning Swish/kontant</h2>
                                 <form onSubmit={submitDeposit}>
                                     <div className="field">
                                         <div className="control">
