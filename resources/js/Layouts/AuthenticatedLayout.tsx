@@ -1,4 +1,3 @@
-import ApplicationLogo from '@/Components/ApplicationLogo';
 import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
@@ -15,17 +14,17 @@ export default function Authenticated({
         useState(false);
 
     return (
-        <div className="min-h-screen bg-gray-100">
+        <div className="min-h-screen bg-white">
             <nav className="border-b border-gray-100 bg-white">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="flex h-16 justify-between">
                         <div className="flex">
                             <div className="flex shrink-0 items-center">
-                                <Link href="/">
-                                    <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800" />
+                                <Link href="/dashboard">
+                                    <img className="navbar-logo" src="/img/logo.png" />
                                 </Link>
                             </div>
-
+{/*
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink
                                     href={route('dashboard')}
@@ -33,7 +32,7 @@ export default function Authenticated({
                                 >
                                     Dashboard
                                 </NavLink>
-                            </div>
+                            </div>*/}
                         </div>
 
                         <div className="hidden sm:ms-6 sm:flex sm:items-center">
@@ -64,11 +63,11 @@ export default function Authenticated({
                                     </Dropdown.Trigger>
 
                                     <Dropdown.Content>
-                                        <Dropdown.Link
+                                        {/*<Dropdown.Link
                                             href={route('profile.edit')}
                                         >
                                             Profile
-                                        </Dropdown.Link>
+                                        </Dropdown.Link>*/}
                                         <Dropdown.Link
                                             href={route('logout')}
                                             method="post"
@@ -130,14 +129,14 @@ export default function Authenticated({
                         ' sm:hidden'
                     }
                 >
-                    <div className="space-y-1 pb-3 pt-2">
+                    {/*<div className="space-y-1 pb-3 pt-2">
                         <ResponsiveNavLink
                             href={route('dashboard')}
                             active={route().current('dashboard')}
                         >
                             Dashboard
                         </ResponsiveNavLink>
-                    </div>
+                    </div>*/}
 
                     <div className="border-t border-gray-200 pb-1 pt-4">
                         <div className="px-4">
@@ -150,9 +149,9 @@ export default function Authenticated({
                         </div>
 
                         <div className="mt-3 space-y-1">
-                            <ResponsiveNavLink href={route('profile.edit')}>
+                            {/*<ResponsiveNavLink href={route('profile.edit')}>
                                 Profile
-                            </ResponsiveNavLink>
+                            </ResponsiveNavLink>*/}
                             <ResponsiveNavLink
                                 method="post"
                                 href={route('logout')}
@@ -164,15 +163,6 @@ export default function Authenticated({
                     </div>
                 </div>
             </nav>
-
-            {header && (
-                <header className="bg-white shadow">
-                    <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-                        {header}
-                    </div>
-                </header>
-            )}
-
             <main>{children}</main>
         </div>
     );

@@ -38,6 +38,8 @@ export default function Login({
                 </div>
             )}
 
+            <h1 className='title is-3 has-text-centered has-text-grey'>LAN-kiosken</h1>
+
             <form onSubmit={submit}>
                 <div>
                     <InputLabel htmlFor="email" value="Email" />
@@ -57,7 +59,7 @@ export default function Login({
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
+                    <InputLabel htmlFor="password" value="Lösenord" />
 
                     <TextInput
                         id="password"
@@ -85,7 +87,7 @@ export default function Login({
                             }
                         />
                         <span className="ms-2 text-sm text-gray-600">
-                            Remember me
+                           Kom ihåg mig
                         </span>
                     </label>
                 </div>
@@ -96,12 +98,12 @@ export default function Login({
                             href={route('password.request')}
                             className="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                         >
-                            Forgot your password?
+                            Glömt ditt lösenord?
                         </Link>
                     )}
 
-                    <PrimaryButton className="ms-4" disabled={processing}>
-                        Log in
+                    <PrimaryButton className="ms-4 button" disabled={processing}>
+                        Logga in
                     </PrimaryButton>
                 </div>
             </form>

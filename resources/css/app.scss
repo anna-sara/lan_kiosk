@@ -1,0 +1,96 @@
+@import 'bulma/css/bulma.min.css';
+
+
+:root {
+    --button-link-background-color: #0080bb;
+    --button-link-color: #fff;
+ }
+
+.button {
+    background-color: var(--button-link-background-color);
+    color: var(--button-link-color);
+   
+}
+
+.navbar-logo {
+    height: 50px;
+    width: auto;
+}
+
+.form-logo{
+    height: 100px;
+    width: auto;
+    margin: 0px auto 30px;
+}
+
+.login-logo {
+    height: 100px;
+    width: auto;
+    margin: 0 auto;
+}
+
+details {
+	position: relative;
+
+	.summary-title {
+		user-select: none;
+	}
+
+	&:hover {
+		cursor: pointer;
+	}
+
+    &:hover .summary-chevron-down svg {
+        opacity: 1;
+    }
+
+	.summary-content {
+		cursor: default;
+	}
+
+	summary {
+		list-style: none;
+
+		&:focus {
+			outline: none;
+		}
+
+		&:hover .summary-chevron-up svg {
+			opacity: 1;
+		}
+	}
+
+	.summary-chevron-up svg {
+		opacity: 0.5;
+	}
+
+	.summary-chevron-up,
+	.summary-chevron-down {
+		pointer-events: none;
+		position: absolute;
+		top: 1.4em;
+		right: 1em;
+		background: #ffffff;
+
+		svg {
+			display: block;
+		}
+	}
+
+    .summary-chevron-down{
+		pointer-events: none;
+		position: absolute;
+		top: 2em;
+		right: 1.5em;
+		background: #ffffff;
+
+		svg {
+			display: block;
+            opacity: 0.5;
+		}
+	}
+
+	summary::-webkit-details-marker {
+		display: none;
+	}
+}

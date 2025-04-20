@@ -2,7 +2,7 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "build": "tsc && vite build",
+        "build": "tsc && vite build && sass --load-path=node_modules my-bulma-project.scss my-bulma-project.css",
         "dev": "vite"
     },
     "devDependencies": {
@@ -24,5 +24,16 @@
         "tailwindcss": "^3.2.1",
         "typescript": "^5.0.2",
         "vite": "^6.2.4"
+    },
+    "dependencies": {
+        "@fortawesome/fontawesome-svg-core": "^6.7.2",
+        "@fortawesome/free-solid-svg-icons": "^6.7.2",
+        "@fortawesome/react-fontawesome": "^0.2.2",
+        "@types/babel__generator": "^7.27.0",
+        "@types/babel__template": "^7.4.4",
+        "@types/babel__traverse": "^7.20.7",
+        "@types/prop-types": "^15.7.14",
+        "bulma": "^1.0.4",
+        "sass": "^1.86.3"
     }
 }
