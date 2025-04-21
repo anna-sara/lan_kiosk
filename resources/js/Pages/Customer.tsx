@@ -10,6 +10,7 @@ interface CustomerProps {
         deposit: number
         amount_left: number
         give_leftover: number
+        guardian_name: string
         purchases: [{
             id: number
             amount: number
@@ -52,8 +53,9 @@ export default function Customer({customer}: CustomerProps) {
                              <div className="box">
                              <h2 className='title is-4'>Saldo: {customer.amount_left ? customer.amount_left : 0} kr</h2>
                                 { customer.deposit && 
-                                    <p>Swishad summa: {customer.deposit} kr</p>
+                                    <p>Inbetalad summa: {customer.deposit} kr</p>
                                 }
+                                <p>Vårnadshavare: {customer.guardian_name}</p>
                                 <p>Ge ev överblivet saldo till vBytes: {customer.give_leftover ? "Ja" : "Nej"}</p>
                             </div>
 
