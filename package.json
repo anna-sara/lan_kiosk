@@ -2,7 +2,7 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "build": "tsc && vite build && sass --load-path=node_modules my-bulma-project.scss my-bulma-project.css",
+        "build": "tsc && vite build && sass --load-path=node_modules",
         "dev": "vite"
     },
     "devDependencies": {
