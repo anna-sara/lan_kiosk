@@ -15,6 +15,10 @@ interface CustomerProps {
             id: number
             amount: number
         }]
+        deposits: [{
+            id: number
+            amount: number
+        }]
     } 
 };
 
@@ -52,9 +56,7 @@ export default function Customer({customer}: CustomerProps) {
                         <div className='container is-centered'>
                              <div className="box">
                              <h2 className='title is-4'>Saldo: {customer.amount_left ? customer.amount_left : 0} kr</h2>
-                                { customer.deposit && 
-                                    <p>Inbetalad summa: {customer.deposit} kr</p>
-                                }
+                                <p>Inbetalad summa: {customer.deposit ? customer.deposit : 0} kr</p>
                                 <p>Vårnadshavare: {customer.guardian_name}</p>
                                 <p>Ge ev överblivet saldo till vBytes: {customer.give_leftover ? "Ja" : "Nej"}</p>
                             </div>
@@ -94,7 +96,7 @@ export default function Customer({customer}: CustomerProps) {
                                                 required
                                                 className="input" 
                                                 type="number" 
-                                                name="amount" 
+                                                name="deposit" 
                                                 value={data.deposit}
                                                 placeholder="Summa"
                                                 onChange={(e) => setData('deposit', e.target.value)}
@@ -111,7 +113,7 @@ export default function Customer({customer}: CustomerProps) {
 
                             <details className="box">
                                 <summary className='title is-4 my-3'>
-                                    <span>Tidigare köp</span>
+                                    <span>Köp</span>
                                     <div className="summary-chevron-up">
 			                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-chevron-down">
                                                 <polyline points="6 9 12 15 18 9"></polyline>
@@ -121,6 +123,26 @@ export default function Customer({customer}: CustomerProps) {
                                 {customer.purchases && customer.purchases.map( purchase => {
                                     return <div key={purchase.id} className="box">
                                         <p>{purchase.amount} kr</p>
+                                    </div>
+                                })}
+                                <div className="summary-chevron-down">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-chevron-up">
+                                        <polyline points="18 15 12 9 6 15"></polyline>
+                                    </svg>
+                                </div>
+                            </details>
+                            <details className="box">
+                                <summary className='title is-4 my-3'>
+                                    <span>Inbetalningar</span>
+                                    <div className="summary-chevron-up">
+			                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-chevron-down">
+                                                <polyline points="6 9 12 15 18 9"></polyline>
+                                            </svg>
+		                            </div>
+                                </summary>
+                                {customer.deposits && customer.deposits.map( deposit => {
+                                    return <div key={deposit.id} className="box">
+                                        <p>{deposit.amount} kr</p>
                                     </div>
                                 })}
                                 <div className="summary-chevron-down">
