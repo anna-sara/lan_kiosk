@@ -84,7 +84,7 @@ class PurchaseController extends Controller
         $purchase->delete();
     
         return response()->json([
-            'success' => true, 'message' => 'Customer deleted successfully'
+            'success' => true, 'message' => 'Purchase deleted successfully'
         ]);
     }
 }

@@ -51,7 +51,7 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
-        $customer = Customer::with('purchases')->findOrFail($id);
+        $customer = Customer::with('purchases')->with('deposits')->findOrFail($id);
 
         return Inertia::render('Customer', ['customer' => $customer]);
     }
