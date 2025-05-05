@@ -4,7 +4,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\DepositController;
 
 Route::post('register_customer', [CustomerController::class, 'store'])->name('register_customer');
-Route::post('register_purchase', [PurchaseController::class, 'store'])->name('register_purchase');
-Route::post('register_deposit/{id}', [CustomerController::class, 'updateDeposit']);
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('register_deposit/{id}', [DepositController::class, 'store']);
+    Route::post('register_purchase', [PurchaseController::class, 'store'])->name('register_purchase'); 
+});
