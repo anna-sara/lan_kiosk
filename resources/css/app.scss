@@ -1,15 +1,25 @@
 @import 'bulma/css/bulma.min.css';
 
-
 :root {
     --button-link-background-color: #0080bb;
     --button-link-color: #fff;
  }
 
+
 .button {
     background-color: var(--button-link-background-color);
     color: var(--button-link-color);
-   
+}
+
+.button.letter {
+    background-color: #fff;
+    color: #000;
+    border: 1px solid lightgray;
+}
+
+.is-active.letter {
+    background-color: var(--button-link-background-color);
+    color: var(--button-link-color);
 }
 
 .navbar-logo {

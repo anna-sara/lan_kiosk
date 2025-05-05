@@ -28,23 +28,24 @@ class DepositController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, $id)
+    public function store(Request $request)
     {
         $request->validate([
+            'customer_id' => 'required',
             'deposit' => 'required',
         ]);
 
         Deposit::create([
-            'customer_id' => $id,
+            'customer_id' => $request->customer_id,
             'amount' => $request->deposit,
         ]);
 
-        $customer = Customer::findOrFail($id);
+        $customer = Customer::findOrFail($request->customer_id);
         $customer->deposit = $customer->deposit + $request->deposit;
         $customer->amount_left = $customer->amount_left + $request->deposit;
         $customer->save();
 
-        return redirect('customer/' . $customer->id);
+        return redirect('customer/' . $request->customer_id);
     }
 
     /**

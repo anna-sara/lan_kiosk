@@ -29,7 +29,6 @@ export default function Customer({customer}: CustomerProps) {
         customer_id: customer.id,
         deposit: "",
         id: customer.id
-
     });
 
     const submit: FormEventHandler = (e) => {
@@ -41,7 +40,7 @@ export default function Customer({customer}: CustomerProps) {
 
     const submitDeposit: FormEventHandler = (e) => {
         e.preventDefault()
-        post('/api/register_deposit/' + customer.id, {
+        post(route('register_deposit'), {
             onFinish: () => reset('deposit'),
         }); 
     }
