@@ -1,6 +1,7 @@
 import TextInput from '@/Components/TextInput';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, useForm } from '@inertiajs/react';
+import axios from 'axios';
 import { FormEventHandler } from 'react';
 
 interface CustomerProps {
@@ -44,14 +45,22 @@ export default function Customer({customer}: CustomerProps) {
             onFinish: () => reset('deposit'),
         }); 
     }
-   
+
+    const deleteCustomer = (id: string | number) => {
+       axios.delete('/api/customer/' + id)
+        .then(response => {
+            window.location.href = "/dashboard";
+        })
+        .catch(error => {console.log(error)})
+    }
+
     return (
         <AuthenticatedLayout>
             <Head title="Deltagare" />
 
             <section className='section'>
                 <div className="container is-max-desktop">
-                    <h1 className="title is-2">{customer.name}</h1>
+                    <h1 className="title is-2">{customer.name}</h1> 
                         <div className='container is-centered'>
                              <div className="box">
                              <h2 className='title is-4'>Saldo: {customer.amount_left ? customer.amount_left : 0} kr</h2>
@@ -151,8 +160,9 @@ export default function Customer({customer}: CustomerProps) {
                                 </div>
                             </details>
                         </div>
-                   
-                
+                    <button onClick={() => deleteCustomer(customer.id)} className="button mt-4 is-danger is-outlined is-small">
+                        <span>Radera deltagare</span>
+                    </button>
                 </div>
             </section>
             

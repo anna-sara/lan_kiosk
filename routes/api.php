@@ -11,4 +11,5 @@ Route::post('register_customer', [CustomerController::class, 'store'])->name('re
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('register_deposit', [DepositController::class, 'store'])->name('register_deposit');
     Route::post('register_purchase', [PurchaseController::class, 'store'])->name('register_purchase'); 
+    Route::delete('customer/{id}', [CustomerController::class, 'destroy'])->name('delete_customer'); 
 });
