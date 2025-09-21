@@ -20,6 +20,7 @@ class Customer extends Model
         'amount used',
         'deposit',
         'give_leftover',
+        'comment'
     ];
 
     /**

@@ -11,6 +11,15 @@
     color: var(--button-link-color);
 }
 
+.button.is-info {
+    border: 1px solid var(--button-link-background-color); 
+    color: var(--button-link-background-color);
+
+    &:hover {
+        border: 2px solid var(--button-link-background-color); 
+    }
+}
+
 .button.letter {
     background-color: #fff;
     color: #000;

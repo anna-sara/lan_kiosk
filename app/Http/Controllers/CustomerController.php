@@ -82,6 +82,24 @@ class CustomerController extends Controller
         return redirect('customer/' . $customer->id);
     }
 
+     /**
+     * Update the specified resource in storage.
+     */
+    public function updateComment(Request $request)
+    {
+        $request->validate([
+            'customer_id' => 'required',
+            'comment' => 'required',
+        ]);
+        
+        $customer = Customer::findOrFail($request->customer_id);
+
+        $customer->comment = $request->comment;
+        $customer->save();
+        
+        return redirect('customer/' . $customer->id);
+    }
+
     /**
      * Remove the specified resource from storage.
      */

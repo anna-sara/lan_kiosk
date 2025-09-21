@@ -1,5 +1,6 @@
 import TextInput from '@/Components/TextInput';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import { Textarea } from '@headlessui/react';
 import { Head, useForm } from '@inertiajs/react';
 import axios from 'axios';
 import { FormEventHandler } from 'react';
@@ -12,6 +13,7 @@ interface CustomerProps {
         amount_left: number
         give_leftover: number
         guardian_name: string
+        comment: string;
         purchases: [{
             id: number
             amount: number
@@ -29,7 +31,8 @@ export default function Customer({customer}: CustomerProps) {
         amount: "",
         customer_id: customer.id,
         deposit: "",
-        id: customer.id
+        id: customer.id,
+        comment: ""
     });
 
     const submit: FormEventHandler = (e) => {
@@ -43,6 +46,12 @@ export default function Customer({customer}: CustomerProps) {
         e.preventDefault()
         post(route('register_deposit'), {
             onFinish: () => reset('deposit'),
+        }); 
+    }
+
+    const updateComment: FormEventHandler = (e) => {
+        e.preventDefault()
+        post(route('update_comment'), {
         }); 
     }
 
@@ -119,6 +128,30 @@ export default function Customer({customer}: CustomerProps) {
                                 </form>
                             </div>
 
+                            <div className="box">
+                                <h2 className='title is-4'>Kommentar</h2>
+                                <form onSubmit={updateComment}>
+                                    <div className="field">
+                                        <div className="control">
+                                            <textarea
+                                                required
+                                                className="textarea" 
+                                                name="comment" 
+                                                defaultValue={customer.comment}
+                                                value={data.comment}
+                                                //placeholder="Kommentar"
+                                                onChange={(e) => setData('comment', e.target.value)}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="field is-grouped">
+                                        <div className="control">
+                                            <button className="button">Spara</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
                             <details className="box">
                                 <summary className='title is-4 my-3'>
                                     <span>Köp</span>
@@ -160,7 +193,7 @@ export default function Customer({customer}: CustomerProps) {
                                 </div>
                             </details>
                         </div>
-                    <button onClick={() => deleteCustomer(customer.id)} className="button mt-4 is-danger is-outlined is-small">
+                    <button onClick={() => deleteCustomer(customer.id)} className="button mt-4 mr-3 is-danger is-outlined is-small">
                         <span>Radera deltagare</span>
                     </button>
                 </div>
