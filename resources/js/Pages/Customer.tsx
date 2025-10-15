@@ -38,14 +38,18 @@ export default function Customer({customer}: CustomerProps) {
     const submit: FormEventHandler = (e) => {
         e.preventDefault()
         post(route('register_purchase'), {
-            onFinish: () => reset('amount'),
+            onFinish: () => setData(
+                'amount', ''
+            ),
         }); 
     }
 
     const submitDeposit: FormEventHandler = (e) => {
         e.preventDefault()
         post(route('register_deposit'), {
-            onFinish: () => reset('deposit'),
+            onFinish: () => setData(
+                'deposit', ''
+            ),
         }); 
     }
 
@@ -104,32 +108,15 @@ export default function Customer({customer}: CustomerProps) {
                                 </form>
                             </div>
 
-                            <div className="box">
-                                <h2 className='title is-4'>Inbetalning Swish/kontant</h2>
-                                <form onSubmit={submitDeposit}>
-                                    <div className="field">
-                                        <div className="control">
-                                            <TextInput
-                                                required
-                                                className="input" 
-                                                type="number" 
-                                                name="deposit" 
-                                                value={data.deposit}
-                                                placeholder="Summa"
-                                                onChange={(e) => setData('deposit', e.target.value)}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="field is-grouped">
-                                        <div className="control">
-                                            <button className="button">Spara</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-
-                            <div className="box">
-                                <h2 className='title is-4'>Kommentar</h2>
+                            <details className="box">
+                                <summary className='title is-4 my-3'>
+                                    <span>Kommentar</span>
+                                    <div className="summary-chevron-up">
+			                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-chevron-down">
+                                                <polyline points="6 9 12 15 18 9"></polyline>
+                                            </svg>
+		                            </div>
+                                </summary>
                                 <form onSubmit={updateComment}>
                                     <div className="field">
                                         <div className="control">
@@ -150,7 +137,52 @@ export default function Customer({customer}: CustomerProps) {
                                         </div>
                                     </div>
                                 </form>
-                            </div>
+                                
+                                <div className="summary-chevron-down">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-chevron-up">
+                                        <polyline points="18 15 12 9 6 15"></polyline>
+                                    </svg>
+                                </div>
+                            </details>
+
+                            <details className="box">
+                                <summary className='title is-4 my-3'>
+                                    <span>Inbetalning Swish/kontant</span>
+                                    <div className="summary-chevron-up">
+			                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-chevron-down">
+                                                <polyline points="6 9 12 15 18 9"></polyline>
+                                            </svg>
+		                            </div>
+                                </summary>
+                                <form onSubmit={submitDeposit}>
+                                    <div className="field">
+                                        <div className="control">
+                                            <TextInput
+                                                required
+                                                className="input" 
+                                                type="number" 
+                                                name="deposit" 
+                                                value={data.deposit}
+                                                placeholder="Summa"
+                                                onChange={(e) => setData('deposit', e.target.value)}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="field is-grouped">
+                                        <div className="control">
+                                            <button className="button">Spara</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                
+                                <div className="summary-chevron-down">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-chevron-up">
+                                        <polyline points="18 15 12 9 6 15"></polyline>
+                                    </svg>
+                                </div>
+                            </details>
+
+                            
 
                             <details className="box">
                                 <summary className='title is-4 my-3'>
