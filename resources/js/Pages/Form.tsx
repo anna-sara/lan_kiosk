@@ -29,7 +29,7 @@ export default function Form() {
                         <div className="p-6 text-gray-900">
                         <img className="form-logo" src="/img/logo.png" />
                         <h1 className='title is-3 mb-2'>Registering av deltagare</h1>
-                        <p className="subtitle is-6">Fyll i deltagarens och dina uppgifter. Swisha/Betala sedan in en önskad summa pengar och meddela kioskpersonal</p>
+                        <p className="subtitle is-6">Fyll i deltagarens och dina uppgifter. Swisha sedan in en önskad summa pengar och meddela kioskpersonal eller betala in en önskad summa pengar i kontanter till kioskpersonal.</p>
                         <p></p>
                         <form onSubmit={submit}>
                             <div className="field">
