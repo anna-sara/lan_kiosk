@@ -33,7 +33,7 @@ export default function Form() {
                         <p></p>
                         <form onSubmit={submit}>
                             <div className="field">
-                                <label className="label">Deltagarens namn</label>
+                                <label className="label">Deltagarens förnamn och efternamn. (alt familjens efternamn om flera barn ska ha samma swishkonto)</label>
                                 <div className="control">
                                      <TextInput
                                         required
@@ -47,7 +47,7 @@ export default function Form() {
                                 </div>
                             </div>
                             <div className="field">
-                                <label className="label">Vårnadshavares namn</label>
+                                <label className="label">Vårnadshavares förnamn och efternamn</label>
                                 <div className="control">
                                      <TextInput
                                         required
@@ -84,7 +84,7 @@ export default function Form() {
                                 <div className="control">
                                     <label className="checkbox">
                                     <Checkbox type="checkbox" required/>
-                                    <span> Jag godkänner att mina uppgifter används.</span>
+                                    <span> Jag godkänner att mina och deltagarens uppgifter används.</span>
                                        
                                     </label>
                                 </div>
