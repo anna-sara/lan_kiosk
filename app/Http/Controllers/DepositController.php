@@ -41,11 +41,36 @@ class DepositController extends Controller
         ]);
 
         $customer = Customer::findOrFail($request->customer_id);
-        $customer->deposit = $customer->deposit + $request->deposit;
-        $customer->amount_left = $customer->amount_left + $request->deposit;
-        $customer->save();
 
-        return redirect('customer/' . $request->customer_id);
+        if ($customer->is_in_group) {
+            $groupCustomer = Customer::where('customer_group_id', $customer->customer_group_id)->where('is_in_group', 0)->first();
+            $groupCustomer->deposit += $customer->deposit;
+            $groupCustomer->amount_left += $request->deposit;
+            $groupCustomer->save();
+            $customer->deposit = 0;
+            $customer->save();
+
+            if ($request->manual_deposit === 1) {
+                return redirect('customer/' . $request->customer_id);
+            } 
+            return response()->json([
+                'success' => true, 'message' => 'Deposit added successfully'
+            ]);
+           
+
+        } else {
+            $customer->deposit = $customer->deposit + $request->deposit;
+            $customer->amount_left = $customer->amount_left + $request->deposit;
+            $customer->save();
+
+            if ($request->manual_deposit === 1) {
+                return redirect('customer/' . $request->customer_id);
+            } 
+            return response()->json([
+                'success' => true, 'message' => 'Deposit added successfully'
+            ]);
+        }
+       
     }
 
     /**

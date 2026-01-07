@@ -5,6 +5,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\CustomerGroupController;
 
 Route::get('/', function () {
     return Inertia::render('Auth/Login');
@@ -12,6 +13,7 @@ Route::get('/', function () {
 
 Route::get('/dashboard', [CustomerController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/customer/{id}', [CustomerController::class, 'show'])->middleware(['auth', 'verified']);
+Route::get('/customer-groups', [CustomerGroupController::class, 'index'])->middleware(['auth', 'verified'])->name('customer-groups');
 
 Route::get('/form', function () {
     return Inertia::render('Form');

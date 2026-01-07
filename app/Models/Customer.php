@@ -14,13 +14,16 @@ class Customer extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'lan_id',
         'name',
         'guardian_name',
         'amount left',
         'amount used',
         'deposit',
         'give_leftover',
-        'comment'
+        'comment',
+        'customer_group_id',
+        'is_in_group'
     ];
 
     /**
