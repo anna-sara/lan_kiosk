@@ -1,6 +1,6 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head } from '@inertiajs/react';
-import { SetStateAction, useState } from 'react';
+import { Head, useForm } from '@inertiajs/react';
+import {useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 
@@ -9,40 +9,45 @@ interface CustomerProps {
     customers: [{
         id: number
         name: string
+        group_id: string,
+        is_group: boolean
     }],
 };
 
-interface Customer {
+type Customer = {
     id: number
     name: string
+    group_id: string,
+    is_group: boolean
+
 };
 
 
-
-export default function Dashboard({customers}: CustomerProps) {
+export default function Dashboard({ customers }: CustomerProps) {
     const [searchItem, setSearchItem] = useState('')
     const [activeTab, setActiveTab] = useState('')
     const [filteredCustomers, setFilteredCustomers] = useState<Customer[]>(customers)
-    const letterArray = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","Å","Ä","Ö"];
+    const letterArray = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "Å", "Ä", "Ö"];
 
-    const handleInputChange = (e: any) => { 
+    const handleInputChange = (e: any) => {
         const searchTerm = e.target.value;
         setSearchItem(searchTerm)
 
         const filteredItems = customers.filter((customer) =>
             customer.name.toLowerCase().includes(searchTerm.toLowerCase())
         );
-        
+
         setFilteredCustomers(filteredItems);
     }
 
-    const handleInputClick = (searchTerm: any) => { 
+    const handleInputClick = (searchTerm: any) => {
         const filteredItems = customers.filter((customer) =>
             customer.name.toLowerCase().startsWith(searchTerm.toLowerCase())
         );
-        
+
         setFilteredCustomers(filteredItems);
     }
+
 
     return (
         <AuthenticatedLayout>
@@ -59,22 +64,22 @@ export default function Dashboard({customers}: CustomerProps) {
                         placeholder='Skriv för att söka'
                     />
                     <div>
-                    <ul className='grid is-col-min-2 is-column-gap-1 mb-5'>
-                        { letterArray && letterArray.map( letter => {
-                             return <li className={`${activeTab == letter ? "is-active" : ""} cell button letter is-small is-white`} onClick={ () => [setActiveTab(letter) ,handleInputClick(letter)]}>
-                                 {letter}
-                             </li>
+                        <ul className='grid is-col-min-2 is-column-gap-1 mb-5'>
+                            {letterArray && letterArray.map(letter => {
+                                return <li className={`${activeTab == letter ? "is-active" : ""} cell button letter is-small is-white`} onClick={() => [setActiveTab(letter), handleInputClick(letter)]}>
+                                    {letter}
+                                </li>
                             })
-                        }
-                        <li className='cell button is-small is-white' onClick={ () => [setActiveTab(""), setFilteredCustomers(customers), setSearchItem("") ]}>
-                                 Rensa
-                        </li>
-                           
+                            }
+                            <li className='cell button is-small is-white' onClick={() => [setActiveTab(""), setFilteredCustomers(customers), setSearchItem("")]}>
+                                Rensa
+                            </li>
+
                         </ul>
                     </div>
                     <div className='container is-centered'>
-                        {filteredCustomers && filteredCustomers.map( customer => {
-                            return <a key={customer.id} className="box is-flex is-justify-content-space-between" href={`/customer/` + customer.id}>
+                        {filteredCustomers && filteredCustomers.map(customer => {
+                            return <a key={customer.id} className="box customer-box is-flex is-justify-content-space-between" href={`/customer/` + customer.id}>
                                 <p>{customer.name}</p>
                                 <span className="icon has-text-black">
                                     <FontAwesomeIcon icon={faArrowRight} />
@@ -84,7 +89,7 @@ export default function Dashboard({customers}: CustomerProps) {
                     </div>
                 </div>
             </section>
-            
+
         </AuthenticatedLayout>
     );
 }

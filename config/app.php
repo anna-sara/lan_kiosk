@@ -123,4 +123,9 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'apikey_deposit' => env('API_KEY_DEPOSIT'),
+    'apilan_key' => env('API_LAN_KEY'),
+    'apilan_url' => env('API_LAN_URL'),
+    'apilan_clientcert_path' => env('API_LAN_CLIENTCERT_PATH')
+
 ];

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\CustomerGroup;
 use Illuminate\Http\Request;
 use App\Models\Purchase;
 use Inertia\Inertia;
@@ -14,7 +15,8 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $customers = Customer::orderBy('name', 'asc')->get();
+        $customers = Customer::where('is_in_group', 0)->orderBy('name', 'asc')->get();
+       
         return Inertia::render('Dashboard', ['customers' => $customers]);
     }
 
@@ -52,16 +54,22 @@ class CustomerController extends Controller
     public function show($id)
     {
         $customer = Customer::with('purchases')->with('deposits')->findOrFail($id);
+        $groupmembers = Customer::where('is_in_group', 1)->where('customer_group_id', $customer->customer_group_id)->get();
 
-        return Inertia::render('Customer', ['customer' => $customer]);
+
+        return Inertia::render('Customer', ['customer' => $customer, 'groupmembers' => $groupmembers]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Customers $customers)
+    public function edit($id)
     {
-        //
+        $customer = Customer::findOrFail($id);
+
+        $customer->customer_group_id = null;
+        $customer->is_in_group = 0;
+        $customer->save();
     }
 
     /**
@@ -112,4 +120,5 @@ class CustomerController extends Controller
             'success' => true, 'message' => 'Customer deleted successfully'
         ]);
     }
+
 }

@@ -24,15 +24,23 @@ export default function Authenticated({
                                     <img className="navbar-logo" src="/img/logo.png" />
                                 </Link>
                             </div>
-{/*
+
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink
-                                    href={route('dashboard')}
+                                    href="/dashboard"
                                     active={route().current('dashboard')}
                                 >
-                                    Dashboard
+                                    Deltagare
                                 </NavLink>
-                            </div>*/}
+                            </div>
+                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                <NavLink
+                                    href="/customer-groups"
+                                    active={route().current('customer-groups')}
+                                >
+                                    Grupper
+                                </NavLink>
+                            </div>
                         </div>
 
                         <div className="hidden sm:ms-6 sm:flex sm:items-center">
