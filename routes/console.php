@@ -80,7 +80,7 @@ Schedule::call(function () {
                 [
                     'lan_id' => $volunteer['lan_id'],
                     'name' => $volunteer['first_name'] . " " . $volunteer['surname'],          
-                    'guardian_name' => $participant['guardian_name'],
+                    'guardian_name' => $volunteer['first_name'] . " " . $volunteer['surname']
                 ]
             );
         }
