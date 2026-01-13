@@ -24,8 +24,8 @@ Schedule::call(function () {
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json'
             ],
-            //'cert' => config('app.apilan_clientcert_path') 
-            'cert' => Storage::disk('public')->path('lan.vbytes.se.pem')
+            'cert' => config('app.apilan_clientcert_path') 
+            //'cert' => Storage::disk('public')->path('lan.vbytes.se.pem')
         ],
     );
     $versions = json_decode((string) $responseVersions->getBody(), true);
@@ -57,8 +57,8 @@ Schedule::call(function () {
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json'
                 ],
-                //'cert' => config('app.apilan_clientcert_path') 
-                'cert' => Storage::disk('public')->path('lan.vbytes.se.pem')
+                'cert' => config('app.apilan_clientcert_path') 
+                //'cert' => Storage::disk('public')->path('lan.vbytes.se.pem')
             ],
         );
         $response_data = json_decode((string) $response->getBody(), true);
