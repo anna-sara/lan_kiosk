@@ -252,9 +252,11 @@ export default function Customer({customer, groupmembers}: (CustomerProps & Grou
                                 </div>
                             </details>
                         </div>
-                    <button onClick={() => deleteCustomer(customer.id)} className="button mt-4 mr-3 is-danger is-outlined is-small">
-                        <span>Radera deltagare</span>
-                    </button>
+                    {/*{groupmembers.length < 1 &&
+                        <button onClick={() => deleteCustomer(customer.id)} className="button mt-4 mr-3 is-danger is-outlined is-small">
+                            <span>Radera deltagare</span>
+                        </button>
+                    }*/}
                 </div>
             </section>
             
