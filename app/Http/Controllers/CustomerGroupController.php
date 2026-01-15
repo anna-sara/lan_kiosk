@@ -62,8 +62,9 @@ class CustomerGroupController extends Controller
             $customer = Customer::findOrFail($customerItem);
             $customer->customer_group_id = $customerGroup->id;
             $customer->is_in_group = 1;
-            $groupAmount += $customer->deposit;
+            $groupAmount += $customer->amount_left;
             $customer->deposit = 0;
+            $customer->amount_left = 0;
             $customer->save();
         }
 
