@@ -171,7 +171,7 @@ export default function Customer({customer, groupmembers}: (CustomerProps & Grou
                                     </svg>
                                 </div>
                             </details>
-                            {groupmembers.length < 1 &&
+                            {/*{groupmembers.length < 1 &&*/}
                                 <details className="box">
                                     <summary className='title is-4 my-3'>
                                         <span>Inbetalning Swish/kontant</span>
@@ -208,7 +208,7 @@ export default function Customer({customer, groupmembers}: (CustomerProps & Grou
                                         </svg>
                                     </div>
                                 </details>
-                            }
+                            {/*}*/}
                             
 
                             <details className="box">

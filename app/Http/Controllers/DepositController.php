@@ -33,10 +33,15 @@ class DepositController extends Controller
         $request->validate([
             'customer_id' => 'required',
             'deposit' => 'required',
-            'give_leftover' => 'required'
+            //'give_leftover' => 'nullable'
         ]);
 
-        $customer = Customer::where('lan_id',$request->customer_id)->first();
+        if ($request->manual_deposit === 1) {
+             $customer = Customer::where('id',$request->customer_id)->first();
+        } else {
+             $customer = Customer::where('lan_id',$request->customer_id)->first();
+        }
+       
 
         Deposit::create([
             'customer_id' => $customer->id,
@@ -45,11 +50,11 @@ class DepositController extends Controller
 
         
 
-        if ($customer->is_in_group) {
+        if ($customer->is_in_group ) {
             $groupCustomer = Customer::where('customer_group_id', $customer->customer_group_id)->where('is_in_group', 0)->first();
             $groupCustomer->deposit += $request->deposit;
             $groupCustomer->amount_left += $request->deposit;
-            $groupCustomer->give_leftover = $request->give_leftover;
+            //$groupCustomer->give_leftover = $request->give_leftover;
             $groupCustomer->save();
             $customer->deposit = 0;
             $customer->save();
@@ -65,7 +70,7 @@ class DepositController extends Controller
         } else {
             $customer->deposit = $customer->deposit + $request->deposit;
             $customer->amount_left = $customer->amount_left + $request->deposit;
-            $customer->give_leftover = $request->give_leftover;
+            //$customer->give_leftover = $request->give_leftover;
             $customer->save();
 
             if ($request->manual_deposit === 1) {
